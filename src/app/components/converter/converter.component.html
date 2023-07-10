@@ -1,0 +1,36 @@
+<div *ngIf="!loading; else loadingProcess" class="flex flex-col justify-center items-center gap-y-6">
+    <p class="font-fredoka text-[20px]">Convert - {{amount}} {{fromValue}} to {{toValue}}</p>
+    <div class="flex flex-wrap justify-center items-center gap-x-4 gap-y-4">
+        <div class="flex flex-col w-[250px]">
+            <p class="font-bold font-poppins">Amount</p>
+            <input type="number" class="p-[10px] border border-gray-300 rounded-[6px] text-lg" [(ngModel)]="amount">
+        </div>
+        <div class="flex flex-wrap items-end gap-x-4">
+            <div class="flex flex-col">
+                <p class="font-bold font-poppins">From</p>
+                <select (change)="onChangeCurrency()" class="rounded-[6px] bg-white border shadow-sm p-[10px] text-lg h-[50px]"
+                        [(ngModel)]="fromValue">
+                    <option *ngFor="let val of values">{{val}}</option>
+                </select>
+                <!--        <p>You have selected {{selected}}</p>-->
+            </div>
+            <div>
+                <button (click)="onSwapCurrency()" class="p-4 rounded-full border border-gray-300 ">
+                    <img width="10" height="10" src="favicon.ico" alt="swap">
+                </button>
+            </div>
+            <div class="flex flex-col">
+                <p class="font-bold font-poppins">To</p>
+                <select (change)="onChangeCurrency()" class="rounded-[6px] bg-white border shadow-sm p-[10px] text-lg h-[50px]"
+                        [(ngModel)]="toValue">
+                    <option *ngFor="let val of values">{{val}}</option>
+                </select>
+                <!--        <p>You have selected {{selected}}</p>-->
+            </div>
+        </div>
+
+    </div>
+</div>
+<ng-template #loadingProcess>
+    <p>{{currencyData.base}}</p>
+</ng-template>
