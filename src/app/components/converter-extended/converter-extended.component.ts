@@ -51,10 +51,6 @@ export class ConverterExtendedComponent {
     let tempValue = this.fromValue
     this.fromValue = this.toValue
     this.toValue = tempValue
-
-    let tempAmount = this.fromAmount
-    this.fromAmount = this.toAmount
-    this.toAmount = tempAmount
     this.onChangeCurrency()
   }
 }
