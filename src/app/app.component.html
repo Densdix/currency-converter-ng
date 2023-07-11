@@ -1,6 +1,11 @@
 <div>
-  <header class="flex justify-end">
-    <p>USD EUR</p>
+  <header class="flex flex-wrap justify-end bg-blue-500 gap-x-2 p-2 text-white">
+    <p><span class="font-bold">USD</span>: {{usdCurrency}} </p>
+    <p><span class="font-bold">EUR</span>: {{eurCurrency}}</p>
   </header>
-  <app-converter/>
+
+  <app-converter *ngIf="!loading; else loadingProcess" [currencyData]="currencyData"/>
+  <ng-template #loadingProcess>
+    <p>Loading...</p>
+  </ng-template>
 </div>

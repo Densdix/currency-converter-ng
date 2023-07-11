@@ -1,60 +1,49 @@
-import {Component, OnInit} from '@angular/core';
-import {CurrencyService} from "../../services/currency.service";
-import {Observable, tap} from "rxjs";
+import {Component, Input, OnInit} from '@angular/core';
 import {ICurrency} from "../../types";
-
-interface Currency {
-    value: string;
-    viewValue: string;
-}
+import {ISONumConverter} from "../../utils";
 
 @Component({
-    selector: 'app-converter',
-    templateUrl: './converter.component.html',
-    styleUrls: ['./converter.component.css']
+  selector: 'app-converter',
+  templateUrl: './converter.component.html',
+  styleUrls: ['./converter.component.css']
 })
 export class ConverterComponent implements OnInit{
 
-    ngOnInit(): void {
-        this.loading = true
-        this.currencyService.getAll().subscribe(response => {
-            this.currencyData = response
-            this.loading = false
-        })
+  ngOnInit(): void {
+    this.onChangeCurrency()
+  }
+  @Input({required: true}) currencyData: ICurrency[]
+  amount = 1
+  calcAmount = 0
+  fromValue = 'USD'
+  toValue = 'UAH'
+  values = ['USD', 'EUR', 'UAH']
+
+  onChangeCurrency() {
+    let fromValueCode = ISONumConverter(this.fromValue)
+    let toValueCode = ISONumConverter(this.toValue)
+
+    for (let c of this.currencyData) {
+      if (c.currencyCodeA === fromValueCode && c.currencyCodeB === toValueCode) {
+        this.calcAmount = Math.round((this.amount * c.rateBuy + Number.EPSILON) * 100) / 100
+        break
+      }
+      if (c.currencyCodeA === toValueCode && c.currencyCodeB === fromValueCode) {
+        this.calcAmount = Math.round((this.amount / c.rateBuy + Number.EPSILON) * 100) / 100
+        break
+      }
+      if (fromValueCode === toValueCode){
+        this.calcAmount = this.amount
+        break
+      }
     }
+  }
 
-    constructor(private currencyService: CurrencyService) {}
-    loading = false
-    title = 'converter'
-    currencyData: ICurrency
-    amount = 1
-    fromValue = 'USD'
-    toValue ='UAH'
-    // resp$: Observable<ICurrency>
-    currencies: Currency[] = [
-        {value: 'usd', viewValue: "USD"},
-        {value: 'usd2', viewValue: "USD2"},
-        {value: 'usd3', viewValue: "USD3"},
-    ]
-    values = ['USD', 'EUR', 'UAH']
-
-    onChangeCurrency() {
-        console.log("selected: " + this.title)
-        this.title = this.toValue
-        this.currencyService.getAll()
-        // console.log(this.resp$)
-    }
-
-    onSwapCurrency() {
-        let tempValue = this.fromValue
-        this.fromValue = this.toValue
-        this.toValue = tempValue
-    }
-
-    protected readonly HTMLSelectElement = HTMLSelectElement;
-    protected readonly Event = Event;
-
-
-
+  onSwapCurrency() {
+    let tempValue = this.fromValue
+    this.fromValue = this.toValue
+    this.toValue = tempValue
+    this.onChangeCurrency()
+  }
 
 }
