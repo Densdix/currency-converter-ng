@@ -1,0 +1,30 @@
+<div class="flex flex-col justify-center items-center py-8 gap-y-6 m-[30px] rounded-[15px] shadow-2xl">
+  <div class="p-1 bg-amber-300 w-[50px] rounded-full text-xs text-center font-bold font-poppins">v2</div>
+  <div class="flex flex-wrap justify-center items-center gap-x-4 gap-y-4">
+    <div class="flex flex-wrap max-sm:flex-col max-sm:gap-y-2 items-center gap-x-4">
+      <div class="flex flex-col gap-y-2">
+        <select (change)="onChangeCurrency()" class="rounded-[6px] bg-white border shadow-sm p-[10px] text-lg h-[50px]"
+                [(ngModel)]="fromValue">
+          <option *ngFor="let val of values">{{val}}</option>
+        </select>
+        <input (keyup)="onChangeCurrency(true)" (change)="onChangeCurrency(true)" type="number" class="p-[10px] border border-gray-300 rounded-[6px] text-lg" [(ngModel)]="fromAmount">
+        <!--        <p>You have selected {{selected}}</p>-->
+      </div>
+      <div>
+        <button (click)="onSwapCurrency()" class="p-4 rounded-full border border-gray-300 active:bg-blue-100">
+          <img width="15" height="15" src="assets/swap.png" alt="swap">
+        </button>
+      </div>
+      <div class="flex flex-col gap-y-2">
+        <select (change)="onChangeCurrency()" class="rounded-[6px] bg-white border shadow-sm p-[10px] text-lg h-[50px]"
+                [(ngModel)]="toValue">
+          <option *ngFor="let val of values">{{val}}</option>
+        </select>
+        <input (keyup)="onChangeCurrency(false)" (change)="onChangeCurrency(false)" type="number" class="p-[10px] border border-gray-300 rounded-[6px] text-lg" [(ngModel)]="toAmount">
+        <!--        <p>You have selected {{selected}}</p>-->
+      </div>
+    </div>
+
+  </div>
+
+</div>

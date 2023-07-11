@@ -1,10 +1,13 @@
+<app-global-error *ngIf="loading"></app-global-error>
 <div>
-  <header class="flex flex-wrap justify-end bg-blue-500 gap-x-2 p-2 text-white">
+  <header class="flex flex-wrap justify-end bg-[#00214a] gap-x-2 p-2 text-white">
     <p><span class="font-bold">USD</span>: {{usdCurrency}} </p>
     <p><span class="font-bold">EUR</span>: {{eurCurrency}}</p>
   </header>
-
-  <app-converter *ngIf="!loading; else loadingProcess" [currencyData]="currencyData"/>
+  <div *ngIf="!loading; else loadingProcess" >
+    <app-converter [currencyData]="currencyData"/>
+    <app-converter-extended [currencyData]="currencyData"></app-converter-extended>
+  </div>
   <ng-template #loadingProcess>
     <p>Loading...</p>
   </ng-template>
