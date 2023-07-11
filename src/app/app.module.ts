@@ -7,7 +7,7 @@ import {ConverterComponent} from './components/converter/converter.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { ConverterExtendedComponent } from './components/converter-extended/converter-extended.component';
-import { GlobalErrorComponent } from './components/global-error/global-error/global-error.component';
+import { GlobalErrorComponent } from './components/global-error/global-error.component';
 
 @NgModule({
   declarations: [
