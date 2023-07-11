@@ -27,14 +27,14 @@ export class ConverterExtendedComponent {
       if (c.currencyCodeA === fromValueCode && c.currencyCodeB === toValueCode) {
         order
           ? this.toAmount = Math.round((this.fromAmount * c.rateBuy + Number.EPSILON) * 100) / 100
-          : this.fromAmount = Math.round((this.toAmount * c.rateBuy + Number.EPSILON) * 100) / 100
+          : this.fromAmount = Math.round((this.toAmount / c.rateBuy + Number.EPSILON) * 100) / 100
 
         break
       }
       if (c.currencyCodeA === toValueCode && c.currencyCodeB === fromValueCode) {
         order
           ? this.toAmount = Math.round((this.fromAmount / c.rateBuy + Number.EPSILON) * 100) / 100
-          : this.fromAmount = Math.round((this.toAmount / c.rateBuy + Number.EPSILON) * 100) / 100
+          : this.fromAmount = Math.round((this.toAmount * c.rateBuy + Number.EPSILON) * 100) / 100
         break
       }
       if (fromValueCode === toValueCode) {
